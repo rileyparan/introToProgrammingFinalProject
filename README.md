@@ -1,28 +1,26 @@
 # introToProgrammingFinalProjectP1
 # Project Title
 
-Simple overview of use/purpose.
-
+Tetris - Riley Paran 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+I will be creating a Tetris game. The game will incorporate blocks and the controller has the free will to place them wherever they please. The blocks will be color coordinated and disappear once there is a certain amonunt of blocks in the area. 
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Python 3.x, Pygame, etc.
+* All programs downloaded 
+* Pygame and Python 
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Programs and folders/files already downloaded 
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* randomly place blocks at the top
+* controller 
 ```
 code blocks for commands
 ```
