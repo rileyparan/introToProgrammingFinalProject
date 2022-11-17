@@ -19,25 +19,25 @@ I will be creating a Tetris game. The game will incorporate blocks and the contr
 
 ### Executing program
 
-* randomly place blocks at the top
-* controller 
+* randomly place blocks at the top (import random)
+* player is the controller of where the blocks go 
+* blocks go to corresponding color of blocks, then disappear 
 ```
-code blocks for commands
+* code blocks for commands
+* (import random)
 ```
 
 ## Help
 
-Any advise for common problems or issues.
+* blocks disappearing after hitting a certain amount 
+
+*
 ```
-command to run if program contains helper info
 ```
 
 ## Authors
-
-Contributors names and contact info
-
-ex. Chris Cozort  
-ex. ccozort@bcp.org
+Chris Cozort  
+ccozort@bcp.org
 
 ## Version History
 
@@ -49,7 +49,7 @@ ex. ccozort@bcp.org
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the [main.py] License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
