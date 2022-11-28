@@ -1,4 +1,5 @@
-# https://www.techwithtim.net/tutorials/game-development-with-python/tetris-pygame/tutorial-1/ - tutorial
+# https://www.techwithtim.net/tutorials/game-development-with-python/tetris-pygame/tutorial-1/ - tutorial reference 
+# https://data-flair.training/blogs/python-tetris-game-pygame/ - tetris game 
 import pygame 
 import random 
 
