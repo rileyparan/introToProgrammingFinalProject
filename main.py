@@ -15,7 +15,7 @@ piece_size = 30
 
 # represents top left position of the play area - drawing pieces/collisions
 top_left_x = (s_width - play_width) // 2
-top_left_y = s_height - play_height
+top_left_y = s_height - play_height - 50 
 
 # format of the shapes 
 shapes = [
@@ -50,9 +50,6 @@ class Piece:
         def image(self):
             return shapes[self.type][self.rotation]
                 
-                
-        
-
 # index of 'rotating' an image by angle  
         def rotate(self): 
                 self.rotation = (self.rotation + 1) % len(shapes[self.type])
