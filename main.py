@@ -42,56 +42,54 @@ class Figure:
                 self.type = random.randint(0, len(self.figures) - 1)
                 self.color = random.randint(1, len(colors) - 1)
                 self.rotation = 0
-
-# giving the ability to turn the shapes in random positions and rotating the figures each time 
+                # giving the ability to turn the shapes in random positions and rotating the figures each time 
         def image(self): 
                 return self.figures[self.type][self.rotation]
         def rotation(self): 
                 self.rotation = (self.rotation + 1) % len(self.figures[self.type]) 
-
 # initializing "tetris" with variables 
 # field - data field to store the data and methods for defining behaviors 
-class Tetris: 
-       score = 0 
-       state = "begin" 
-       height = 0 
-       width = 0
-       y = 60
-       x = 100 
-       field = []
-       level = 3 
-       zoom = 20
-       figure  = None 
+        class Tetris: 
+                score = 0 
+                state = "begin" 
+                height = 0 
+                width = 0
+                y = 60
+                x = 100 
+                field = []
+                level = 3 
+                zoom = 20
+                figure  = None 
 
 # calls and creates a framework with height x width 
 # also creates new lines within the frame of the game 
-def __init__(self,height,width): 
-        self.height = height
-        self.width = width 
-        self.field = []
-        self.score = 0 
-        self.state = "start"
-        for j in range(width): 
-                new_line.append(0)
-        self.field.append(new_line)
-        for i in range(height):
-                new_line = []
+        def __init__(self,height,width): 
+                self.height = height
+                self.width = width 
+                self.field = []
+                self.score = 0 
+                self.state = "start"
+                for i in range(height):
+                        new_line = []
+                for j in range(width): 
+                        new_line.append(0)
+                self.field.append(new_line)
         
-
+        
 # creates and puts the new block at the new position (at the coordinates of 3,0)
-def new_figure(self): 
-        self.figure = Figure(3,0)
+        def new_figure(self): 
+                self.figure = Figure(3,0)
 # checks if able to move or rotate the certain shape 
 # if piece moves down and intersects = reached bottom (freezes the piece on the grid)
-def intersects(self): 
-        intersection = False
-        for i in range(4):
-            for j in range(4):
-                if i * 4 + j in self.figure.image():
-                    if i + self.figure.y > self.height - 1 or \
+        def intersects(self): 
+                intersection = False
+                for i in range(4):
+                        for j in range(4):
+                                if i * 4 + j in self.figure.image():
+                                        if i + self.figure.y > self.height - 1 or \
                             j + self.figure.x > self.width - 1 or \
                             j + self.figure.x < 0 or \
                             self.field[i + self.figure.y][j + self.figure.x] > 0:
-                        intersection = True
-        return intersection
+                                                intersection = True
+                return intersection
 
