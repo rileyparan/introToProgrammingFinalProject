@@ -47,6 +47,7 @@ class Piece:
                 self.color = color
                 self.block= block(x,y)
                 self.field=field
+                
         def image(self):
             return shapes[self.type][self.rotation]
                 
@@ -107,3 +108,10 @@ def draw_next_piece(self,screen):
                     p = i * 4 + j
                     if p in self.nextPieceimage():
                         pygame.draw.rect(screen, shapeColors[self.nextPiece.color],(sx + j*30, sy + i*30, 30, 30), 0)
+
+# moves the pieces down a unit 
+def go_down (self): 
+        self.block.y += 1
+        if self.intersects():
+                self.block.y -= 1
+                self.freeze()
