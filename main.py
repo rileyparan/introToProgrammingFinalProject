@@ -1,6 +1,7 @@
 # https://www.techwithtim.net/tutorials/game-development-with-python/tetris-pygame/tutorial-1/ - tutorial reference (source)
 # https://data-flair.training/blogs/python-tetris-game-pygame/ - tetris game (source)
 # https://levelup.gitconnected.com/writing-tetris-in-python-2a16bddb5318 - tetris game (m - source)
+# https://bcpsj-my.sharepoint.com/personal/ccozort_bcp_org/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5FFall%2FCode%2FExamples%2Fclasses%2Epy&parent=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5FFall%2FCode%2FExamples- classes Mr. Cozort 
 
 import pygame 
 import random 
@@ -37,8 +38,8 @@ class Figure:
 # able to rotate the shapes 
 
         def __init__(self,x,y): 
-                self.x = x
                 self.y = y
+                self.x = x
                 self.type = random.randint(0, len(self.figures) - 1)
                 self.color = random.randint(1, len(colors) - 1)
                 self.rotation = 0
@@ -49,31 +50,31 @@ class Figure:
                 self.rotation = (self.rotation + 1) % len(self.figures[self.type]) 
 # initializing "tetris" with variables 
 # field - data field to store the data and methods for defining behaviors 
-        class Tetris: 
-                score = 0 
-                state = "begin" 
-                height = 0 
-                width = 0
-                y = 60
-                x = 100 
-                field = []
-                level = 3 
-                zoom = 20
-                figure  = None 
+class Tetris: 
+        score = 0 
+        state = "begin" 
+        height = 0 
+        width = 0
+        y = 60
+        x = 100 
+        field = []
+        level = 3 
+        zoom = 20
+        figure  = None 
 
 # calls and creates a framework with height x width 
 # also creates new lines within the frame of the game 
         def __init__(self,height,width): 
-                self.height = height
-                self.width = width 
-                self.field = []
-                self.score = 0 
-                self.state = "start"
-                for i in range(height):
-                        new_line = []
-                for j in range(width): 
-                        new_line.append(0)
-                self.field.append(new_line)
+                        self.height = height
+                        self.width = width 
+                        self.field = []
+                        self.score = 0 
+                        self.state = "start"
+                        for i in range(height):
+                                new_line = []
+                        for j in range(width): 
+                                new_line.append(0)
+                        self.field.append(new_line)
         
         
 # creates and puts the new block at the new position (at the coordinates of 3,0)
@@ -93,3 +94,19 @@ class Figure:
                                                 intersection = True
                 return intersection
 
+        def break_lines(self):
+                lines = 0
+                for i in range(1, self.height):
+                zeros = 0
+            for j in range(self.width):
+                if self.field[i][j] == 0:
+                    zeros += 1
+            if zeros == 0:
+                lines += 1
+                for i1 in range(i, 1, -1):
+                    for j in range(self.width):
+                        self.field[i1][j] = self.field[i1 - 1][j]
+        self.score += lines ** 2
+
+          
+               
