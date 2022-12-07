@@ -9,10 +9,15 @@ import random
 # represents the corresponding shades of light onto the blocks 
 # randomly chosen 
 colors = [
+        # RED 
         (255,0,0),
+        # VIOLET
         (134,1,175),
+        # BLACK
         (0,0,0),
+        # BLUE
         (0,0,254),
+        # GREEN
         (0,255,0),
         (80,34,22),
         (180,34,22),
@@ -51,7 +56,7 @@ class Figure:
 # initializing "tetris" with variables 
 # field - data field to store the data and methods for defining behaviors 
 class Tetris: 
-        score = 0 
+        SCORE = 0 
         state = "begin" 
         height = 0 
         width = 0
@@ -59,31 +64,32 @@ class Tetris:
         x = 100 
         field = []
         level = 3 
-        zoom = 20
+        zoom = 25
         figure  = None 
 
 # calls and creates a framework with height x width 
 # also creates new lines within the frame of the game 
         def __init__(self,height,width): 
-                        self.height = height
-                        self.width = width 
-                        self.field = []
-                        self.score = 0 
-                        self.state = "start"
-                        for i in range(height):
-                                new_line = []
+                self.height = height
+                self.width = width 
+                self.field = []
+                self.score = 0 
+                self.state = "start"
+                for i in range(height):
+                        new_line = []
                         for j in range(width): 
                                 new_line.append(0)
                         self.field.append(new_line)
         
         
-# creates and puts the new block at the new position (at the coordinates of 3,0)
+# creates and puts the NEW BLOCK at the new position (at the coordinates of 3,0)
         def new_figure(self): 
                 self.figure = Figure(3,0)
-# checks if able to move or rotate the certain shape 
-# if piece moves down and intersects = reached bottom (freezes the piece on the grid)
+ 
+# checks to see if it touches the top of board, if true it ends the game 
         def intersects(self): 
                 intersection = False
+                # at 4 (limit) because I set the level at 3 (if i decide to change the level #)
                 for i in range(4):
                         for j in range(4):
                                 if i * 4 + j in self.figure.image():
@@ -94,19 +100,49 @@ class Tetris:
                                                 intersection = True
                 return intersection
 
+# destorys the blocks upon intersection (bottom block to top)
+# checks to see if the blocks form in any row 
+# if true, ups the score by 1 and erases the line 
         def break_lines(self):
                 lines = 0
                 for i in range(1, self.height):
-                zeros = 0
-            for j in range(self.width):
-                if self.field[i][j] == 0:
-                    zeros += 1
-            if zeros == 0:
-                lines += 1
+                        zeros = 0
+                for j in range(self.width):
+                        if self.field[i][j] == 0:
+                                zeros += 1
+                        if zeros == 0:
+                                lines += 1
                 for i1 in range(i, 1, -1):
                     for j in range(self.width):
                         self.field[i1][j] = self.field[i1 - 1][j]
-        self.score += lines ** 2
+                self.score += lines ** 2
 
-          
-               
+# allows to move the block down a unit 
+        def go_down(self): 
+                self.figure.y +=1
+                if self.intersects(): 
+                        self.block.y -=1
+                        self.freeze()
+
+# similiar to "go_down," but moves the block entirely down to the bottom
+        def go_space(self): 
+                while not self.intersects(): 
+                        self.figure.y +=1
+                self.figure.y -=1
+                self.freeze()
+
+# runs once the block reaches the bottom floor
+        def freeze(self): 
+                for i in range(4): 
+                        for j in range(4):
+                                if i * 4 + j in self.figure.image(): 
+                                        self.field[i+self.figure.y][j+self.figure.x] = self.figure.color 
+                # new row formed
+                self.break_lines()
+                # creates new blocks
+                self.new_figure()
+                # if any blocks go to the top and touch the top of the board, automatically ends game with "GAMEOVER"
+                if self.intersects():
+                        self.state = "GAMEOVER"
+
+
