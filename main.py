@@ -3,6 +3,7 @@
 # https://levelup.gitconnected.com/writing-tetris-in-python-2a16bddb5318 - tetris game (m - source)
 # https://bcpsj-my.sharepoint.com/personal/ccozort_bcp_org/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5FFall%2FCode%2FExamples%2Fclasses%2Epy&parent=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5FFall%2FCode%2FExamples- classes Mr. Cozort 
 
+# imported necessary libraries 
 import pygame 
 import random 
 
@@ -48,11 +49,12 @@ class Figure:
                 self.type = random.randint(0, len(self.figures) - 1)
                 self.color = random.randint(1, len(colors) - 1)
                 self.rotation = 0
-                # giving the ability to turn the shapes in random positions and rotating the figures each time 
+# giving the ability to turn the shapes in random positions and rotating the figures each time 
         def image(self): 
                 return self.figures[self.type][self.rotation]
         def rotation(self): 
                 self.rotation = (self.rotation + 1) % len(self.figures[self.type]) 
+                
 # initializing "tetris" with variables 
 # field - data field to store the data and methods for defining behaviors 
 class Tetris: 
