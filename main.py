@@ -94,9 +94,9 @@ class Tetris:
                         for j in range(4):
                                 if i * 4 + j in self.figure.image():
                                         if i + self.figure.y > self.height - 1 or \
-                            j + self.figure.x > self.width - 1 or \
-                            j + self.figure.x < 0 or \
-                            self.field[i + self.figure.y][j + self.figure.x] > 0:
+                                                j + self.figure.x > self.width - 1 or \
+                                                j + self.figure.x < 0 or \
+                                                self.field[i + self.figure.y][j + self.figure.x] > 0:
                                                 intersection = True
                 return intersection
 
@@ -116,20 +116,18 @@ class Tetris:
                     for j in range(self.width):
                         self.field[i1][j] = self.field[i1 - 1][j]
                 self.score += lines ** 2
-
-# allows to move the block down a unit 
-        def go_down(self): 
-                self.figure.y +=1
-                if self.intersects(): 
-                        self.block.y -=1
-                        self.freeze()
-
 # similiar to "go_down," but moves the block entirely down to the bottom
         def go_space(self): 
                 while not self.intersects(): 
                         self.figure.y +=1
                 self.figure.y -=1
                 self.freeze()
+# allows to move the block down a unit 
+        def go_down(self): 
+                self.figure.y +=1
+                if self.intersects(): 
+                        self.figure.y -=1
+                        self.freeze()
 
 # runs once the block reaches the bottom floor
         def freeze(self): 
@@ -145,4 +143,46 @@ class Tetris:
                 if self.intersects():
                         self.state = "GAMEOVER"
 
+# allows to move the block either left or right 
+        def go_totheside(self, dx): 
+                old_x = self.figure.x
+                self.figure.x = dx 
+                if self.intersects(): 
+                        self.figure.x = old_x
+
+# allows to rotate the block 90 degrees clockwise/counter-clockwise 
+# freely choose which direction you want to rotate
+        def rotate(self): 
+                old_rotation = self.figure.rotation
+                self.figure.rotate()
+                if self.intersects(): 
+                        self.figure.rotation = old_rotation     
+
+# initializing pygame 
+pygame.init() 
+
+# background colors 
+GRAY = (128,128,128)
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+
+SIZE = (400,800)
+
+
+pygame.display.set_caption("TETRIS BY RILEY PARAN")
+screen = pygame.display.set_mode(SIZE)
+
+done = False
+fps = 25
+game = Tetris(20,10)
+clock = pygame.time.Clock()
+counter = 0 
+
+font = pygame.font.SysFont('TIMESNEWROMAN', 30, True, False)
+font1 = pygame.font.SysFont('TIMESNEWROMAN', 70, True, False)
+text_game_over = font1.render("GAME OVER", True, (255,125,0))
+text_game_over1 = font1.render("PRESS ESC", True, (255,215,0))
+text = font.render("SCORE: " + str(game.score), True, BLACK)
+
+press_down = False 
 
