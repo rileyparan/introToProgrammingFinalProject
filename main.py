@@ -12,8 +12,6 @@ import random
 colors = [
         # RED 
         (255,0,0),
-        # VIOLET
-        (134,1,175),
         # BLACK
         (0,0,0),
         # BLUE
@@ -42,13 +40,13 @@ class Figure:
 # defining a function = self / x / y 
 # basically being able to randomize between shapes and colors 
 # able to rotate the shapes 
-
         def __init__(self,x,y): 
                 self.y = y
                 self.x = x
                 self.type = random.randint(0, len(self.figures) - 1)
                 self.color = random.randint(1, len(colors) - 1)
                 self.rotation = 0
+
 # giving the ability to turn the shapes in random positions and rotating the figures each time 
         def image(self): 
                 return self.figures[self.type][self.rotation]
@@ -88,7 +86,8 @@ class Tetris:
         def new_figure(self): 
                 self.figure = Figure(3,0)
  
-# checks to see if it touches the top of board, if true it ends the game 
+# checks to see if it touches the top of board, if true it ends the game  
+        
         def intersects(self): 
                 intersection = False
                 # at 4 (limit) because I set the level at 3 (if i decide to change the level #)
@@ -169,10 +168,9 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 
 SIZE = (400,800)
-
+screen = pygame.display.set_mode(SIZE)
 
 pygame.display.set_caption("TETRIS BY RILEY PARAN")
-screen = pygame.display.set_mode(SIZE)
 
 done = False
 fps = 25
@@ -180,11 +178,26 @@ game = Tetris(20,10)
 clock = pygame.time.Clock()
 counter = 0 
 
+
+press_down = False 
+
+while not done: 
+        if game.figure is None: 
+                game.new_figure()
+        counter += 1 
+        if counter > 100000: 
+                counter = 0 
+
+        if counter % (fps // game.level // 2 ) == 0 or press_down: 
+                if game.state == "START": 
+                        game.go_down()
+
 font = pygame.font.SysFont('TIMESNEWROMAN', 30, True, False)
 font1 = pygame.font.SysFont('TIMESNEWROMAN', 70, True, False)
 text_game_over = font1.render("GAME OVER", True, (255,125,0))
 text_game_over1 = font1.render("PRESS ESC", True, (255,215,0))
 text = font.render("SCORE: " + str(game.score), True, BLACK)
 
-press_down = False 
+
+
 
