@@ -191,13 +191,64 @@ while not done:
         if counter % (fps // game.level // 2 ) == 0 or press_down: 
                 if game.state == "START": 
                         game.go_down()
+        
+        for event in pygame.event.get(): 
+                if event.type == pygame.QUIT: 
+                        done = True
+                if event.type == pygame.K_s: 
+                        if event.key == pygame.K_w:
+                                game.rotate()
+                        if event.key == pygame.K_s: 
+                                press_down = True
+                        if event.key == pygame.K_a:
+                                game.go_totheside(-1)
+                        if event.key == pygame.K_d:
+                                game.go_totheside(1)
+                        if event.key == pygame.K_SPACE:
+                                game.go_space
+                        if event.key == pygame.K_ESCAPE:
+                                game.__init__(20,10)
 
-font = pygame.font.SysFont('TIMESNEWROMAN', 30, True, False)
-font1 = pygame.font.SysFont('TIMESNEWROMAN', 70, True, False)
-text_game_over = font1.render("GAME OVER", True, (255,125,0))
-text_game_over1 = font1.render("PRESS ESC", True, (255,215,0))
-text = font.render("SCORE: " + str(game.score), True, BLACK)
+                if event.type == pygame.K_w:
+                        if event.key == pygame.K_s:
+                                press_down = False
+                screen.fill(WHITE)
+                        
+                for i in range(game.height): 
+                        for j in range(game.width): 
+                                pygame.draw.rect(screen,GRAY,[game.x +game.zoom * j, game.y + game.zoom * i, game.zoom, game.zoom], 1)
+                                if game.field [i][j] > 0: 
+                                        pygame.draw.rect(screen,colors[game.field[i][j]],
+                                                        [game.x + game.zoom * j + 1, game.y + game.zoom * i + 1, game.zoom - 2, game.zoom - 1])
+                if game.figure is not None: 
+                        for i in range(4): 
+                                for j in range(4): 
+                                        p = i*4+j 
+                                        if p in game.figure.image():
+                                                pygame.draw.rect(screen,colors[game.figure.color], 
+                                                                [game.x + game.zoom * (j + game.figure.x) + 1,
+                                                                game.y + game.zoom * (i+game.figure.y)+1, 
+                                                                game.zoom - 2, game.zoom -2])
+                                        
+
+
+
+                font = pygame.font.SysFont('TIMESNEWROMAN', 30, True, False)
+                font1 = pygame.font.SysFont('TIMESNEWROMAN', 70, True, False)
+                text_game_over = font1.render("GAME OVER", True, (255,125,0))
+                text_game_over1 = font1.render("PRESS ESC", True, (255,215,0))
+                text = font.render("SCORE: " + str(game.score), True, BLACK)
+
+
+                screen.blit(text, [0, 0])
+                if game.state == "gameover":
+                 screen.blit(text_game_over, [20, 200])
 
 
 
 
+
+pygame.display.flip()
+clock.tick(fps)
+
+pygame.quit()
