@@ -94,7 +94,7 @@ class Tetris:
     def new_block(self):
         self.block = Block(3, 0)
 
-# checks to see if it touches teh top of board (TRUE = ends the game)
+# checks to see if it touches the top of board (TRUE = ends the game)
     def intersects(self):
         intersection = False
         # at 4(limit) because set the level at 3 (decide to change the level #)
