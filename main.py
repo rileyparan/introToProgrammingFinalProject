@@ -36,11 +36,11 @@ colors = [
 
 # represents blocks - upon how they're placed upon the grid 
         # 1,5,9,13 is a vertical line = 4,5,6,7 is a horizontal line 
-class Figure:
+class Block:
     x = 0
     y = 0
 
-    figures = [
+    blocks = [
         [[1,5,9,13], [0,1,2,3]],
         [[1,2,5,9], [0,4,5,6], [1,5,9,10], [4,5,1,2]], 
         [[1,2,3,7], [4,5,6,8], [2,6,10,11], [0,4,5,6]],
@@ -52,14 +52,14 @@ class Figure:
         self.x = x
         self.y = y
         self.color = random.randint(1, len(colors) - 1)
-        self.type = random.randint(0, len(self.figures) - 1)
+        self.type = random.randint(0, len(self.blocks) - 1)
         self.rotation = 0
 # gives the ability to turn the shapes in random positions and rotate the figures each time
     def image(self):
-        return self.figures[self.type][self.rotation]
+        return self.blocks[self.type][self.rotation]
 
     def rotate(self):
-        self.rotation = (self.rotation + 1) % len(self.figures[self.type])
+        self.rotation = (self.rotation + 1) % len(self.blocks[self.type])
 
 # initializing "Tetris"
 class Tetris:
@@ -73,7 +73,7 @@ class Tetris:
     #     data field to store the data and methods for defining behaviors 
     field = []
     zoom = 19
-    figure = None
+    block = None
 
 # calls and creates a framework (height x width)
 # new lines within the frame of the game 
@@ -90,8 +90,8 @@ class Tetris:
             self.field.append(new_line)
 
 # creates and puts the NEW BLOCK at the new position (coordinates 3,0)
-    def new_figure(self):
-        self.figure = Figure(3, 0)
+    def new_block(self):
+        self.block = Block(3, 0)
 
 # checks to see if it touches teh top of board (TRUE = ends the game)
     def intersects(self):
@@ -99,11 +99,11 @@ class Tetris:
         # at 4(limit) because set the level at 3 (decide to change the level #)
         for i in range(4):
             for j in range(4):
-                if i * 4 + j in self.figure.image():
-                    if i + self.figure.y > self.height - 1 or \
-                            j + self.figure.x > self.width - 1 or \
-                            j + self.figure.x < 0 or \
-                            self.field[i + self.figure.y][j + self.figure.x] > 0:
+                if i * 4 + j in self.block.image():
+                    if i + self.block.y > self.height - 1 or \
+                            j + self.block.x > self.width - 1 or \
+                            j + self.block.x < 0 or \
+                            self.field[i + self.block.y][j + self.block.x] > 0:
                         intersection = True
         return intersection
 
@@ -127,45 +127,45 @@ class Tetris:
 # similiar to "go_down", but moves the block entirely to bottom
     def go_space(self):
         while not self.intersects():
-            self.figure.y += 1
-        self.figure.y -= 1
+            self.block.y += 1
+        self.block.y -= 1
         self.freeze()
 
 # allows to move the block down a unit 
     def go_down(self):
-        self.figure.y += 1
+        self.block.y += 1
         if self.intersects():
-            self.figure.y -= 1
+            self.block.y -= 1
             self.freeze()
 
 # runs once the block reaches the bottom floor 
     def freeze(self):
         for i in range(4):
             for j in range(4):
-                if i * 4 + j in self.figure.image():
-                    self.field[i + self.figure.y][j + self.figure.x] = self.figure.color
+                if i * 4 + j in self.block.image():
+                    self.field[i + self.block.y][j + self.block.x] = self.block.color
         # new row formed 
         self.break_lines()
         # creates new blocks 
-        self.new_figure()
+        self.new_block()
         # if any blocks go to the top and touch the top of the board, automatically ends the game with "GAMEOVER"
         if self.intersects():
             self.state = "GAMEOVER"
 
 # allows to move the block either left or right 
     def go_totheside(self, dx):
-        old_x = self.figure.x
-        self.figure.x += dx
+        old_x = self.block.x
+        self.block.x += dx
         if self.intersects():
-            self.figure.x = old_x
+            self.block.x = old_x
 
 # allows to rotate the block 90 degrees clockwise/counter-clockwise
 # freely choose which direction you want to rotate 
     def rotate(self):
-        old_rotation = self.figure.rotation
-        self.figure.rotate()
+        old_rotation = self.block.rotation
+        self.block.rotate()
         if self.intersects():
-            self.figure.rotation = old_rotation
+            self.block.rotation = old_rotation
 
 
 # initializing pygame
@@ -193,8 +193,8 @@ counter = 0
 press_down = False
 
 while not done:
-    if game.figure is None:
-        game.new_figure()
+    if game.block is None:
+        game.new_block()
     counter += 1
     if counter > 100000:
         counter = 0
@@ -231,14 +231,14 @@ while not done:
                                  [game.x + game.zoom * j + 1, game.y + game.zoom * i + 1, game.zoom - 2, game.zoom - 1])
 
 # updating the game board (new moving block)
-    if game.figure is not None:
+    if game.block is not None:
         for i in range(4):
             for j in range(4):
                 p = i * 4 + j
-                if p in game.figure.image():
-                    pygame.draw.rect(screen, colors[game.figure.color],
-                                     [game.x + game.zoom * (j + game.figure.x) + 1,
-                                      game.y + game.zoom * (i + game.figure.y) + 1,
+                if p in game.block.image():
+                    pygame.draw.rect(screen, colors[game.block.color],
+                                     [game.x + game.zoom * (j + game.block.x) + 1,
+                                      game.y + game.zoom * (i + game.block.y) + 1,
                                       game.zoom - 2, game.zoom - 2])
 
     font = pygame.font.SysFont('TIMESNEWROMAN', 25, True, False)
