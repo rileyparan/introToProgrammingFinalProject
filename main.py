@@ -220,7 +220,7 @@ while not done:
     if event.type == pygame.KEYUP:
             if event.key == pygame.K_DOWN:
                 press_down = False
-
+# background color 
     screen.fill(WHITE)
 
 # updating the game board 
@@ -241,19 +241,20 @@ while not done:
                                      [game.x + game.zoom * (j + game.block.x) + 1,
                                       game.y + game.zoom * (i + game.block.y) + 1,
                                       game.zoom - 2, game.zoom - 2])
-
+# settings for the letters in game 
     font = pygame.font.SysFont('TIMESNEWROMAN', 25, True, False)
     font1 = pygame.font.SysFont('TIMESNEWROMAN', 65, True, False)
     text = font.render("SCORE: " + str(game.score), True, BLACK)
     text_game_over = font1.render("GAME OVER", True, (255, 125, 0))
     text_game_over1 = font1.render("PRESS ESC", True, (255, 215, 0))
-
+# when game finishes, GAMEOVER
     screen.blit(text, [0, 0])
     if game.state == "GAMEOVER":
         screen.blit(text_game_over, [10, 200])
         screen.blit(text_game_over1, [23, 265])
 
+# runs at maximum FPS 
     pygame.display.flip()
     clock.tick(fps)
-
+# deactivates pygame library 
 pygame.quit()
