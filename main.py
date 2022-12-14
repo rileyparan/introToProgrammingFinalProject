@@ -203,6 +203,7 @@ while not done:
         if game.state == "start":
             game.go_down()
 # this checks to see which letter key is pressed and to run exactly for it's purpose
+# referenced from videogame format 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
