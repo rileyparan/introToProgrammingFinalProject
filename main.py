@@ -64,7 +64,6 @@ class Block:
 # initializing "Tetris"
 class Tetris:
     SCORE = 0
-    level = 2
     state = "begin"
     height = 0
     width = 0
@@ -74,6 +73,7 @@ class Tetris:
     field = []
     zoom = 19
     block = None
+    level = 2
 
 # calls and creates a framework (height x width)
 # new lines within the frame of the game 
