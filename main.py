@@ -193,6 +193,7 @@ counter = 0
 
 press_down = False
 
+# creates a new block if there is no moving block 
 while not done:
     if game.block is None:
         game.new_block()
