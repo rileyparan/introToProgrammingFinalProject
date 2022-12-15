@@ -126,21 +126,21 @@ class Tetris:
         self.score += lines ** 2
 
 # similiar to "go_down", but moves the block entirely to bottom
-    def go_space(self):
+    def go_bottom(self):
         while not self.intersects():
             self.block.y += 1
         self.block.y -= 1
-        self.freeze()
+        self.stop()
 
 # allows to move the block down a unit 
     def go_down(self):
         self.block.y += 1
         if self.intersects():
             self.block.y -= 1
-            self.freeze()
+            self.stop()
 
 # runs once the block reaches the bottom floor 
-    def freeze(self):
+    def stop(self):
         for i in range(4):
             for j in range(4):
                 if i * 4 + j in self.block.image():
@@ -177,7 +177,7 @@ GRAY = (128, 128, 128)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-size = (400, 500)
+size = (425, 515)
 screen = pygame.display.set_mode(size)
 
 
@@ -185,11 +185,13 @@ pygame.display.set_caption("TETRIS BY RILEY PARAN")
 
 # updating board, checking status, check to see if key pressed 
 # creating loop
+game = Tetris(20, 10)
 done = False
+counter = 0
 clock = pygame.time.Clock()
 fps = 25
-game = Tetris(20, 10)
-counter = 0
+
+
 
 press_down = False
 
@@ -249,6 +251,7 @@ while not done:
     text = font.render("SCORE: " + str(game.score), True, BLACK)
     text_game_over = font1.render("GAME OVER", True, (255, 125, 0))
     text_game_over1 = font1.render("PRESS ESC", True, (255, 215, 0))
+
 # when game finishes, GAMEOVER
     screen.blit(text, [0, 0])
     if game.state == "GAMEOVER":
@@ -258,5 +261,6 @@ while not done:
 # runs at maximum FPS 
     pygame.display.flip()
     clock.tick(fps)
+    
 # deactivates pygame library 
 pygame.quit()
