@@ -111,7 +111,7 @@ class Tetris:
 # destroys blocks upon intersection (bottom block to top)
 # checks to see if the blocks form in any row 
 # if true, ups the score by 1 and erases the line
-    def break_lines(self):
+    def disappear_lines(self):
         lines = 0
         for i in range(1, self.height):
             zeros = 0
@@ -146,7 +146,7 @@ class Tetris:
                 if i * 4 + j in self.block.image():
                     self.field[i + self.block.y][j + self.block.x] = self.block.color
         # new row formed 
-        self.break_lines()
+        self.disappear_lines()
         # creates new blocks 
         self.new_block()
         # if any blocks go to the top and touch the top of the board, automatically ends the game with "GAMEOVER"
@@ -261,6 +261,6 @@ while not done:
 # runs at maximum FPS 
     pygame.display.flip()
     clock.tick(fps)
-    
+
 # deactivates pygame library 
 pygame.quit()
