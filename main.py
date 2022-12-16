@@ -6,6 +6,8 @@
 # https://bcpsj-my.sharepoint.com/personal/ccozort_bcp_org/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5FFall%2FCode%2FgameTutorials%2Fmain%2Epy&parent=%2Fpersonal%2Fccozort%5Fbcp%5Forg%2FDocuments%2FDocuments%2F000%5FIntro%20to%20Programming%2F2022%5FFall%2FCode%2FgameTutorials - main.py Mr. Cozort
 ######################################################################################################################################
 
+# TETRIS BY RILEY PARAN
+
 # imported necessary libraries 
         # pygame for visual, random for randomizing blocks and colors 
 import pygame
@@ -177,9 +179,11 @@ GRAY = (128, 128, 128)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+# settings
 size = (425, 515)
 screen = pygame.display.set_mode(size)
 
+# display at top of the screen in game
 
 pygame.display.set_caption("TETRIS BY RILEY PARAN")
 
@@ -191,7 +195,7 @@ counter = 0
 clock = pygame.time.Clock()
 fps = 25
 
-
+# checking if key is pressed - make sure it corresponds to its functionality 
 
 press_down = False
 
